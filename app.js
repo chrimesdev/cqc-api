@@ -1,20 +1,19 @@
 const axios = require('axios');
 
-async function getCQC(name, ods_code) {
+async function getCQC(postalCode, ods_code) {
     try {
-      // Retrieve location ID by practice name
+      // Retrieve all locations
       const locationsListAPI = await axios.get('https://api.cqc.org.uk/public/v1/locations?page=1&perPage=80000&careHome=N');
       const allLocations = locationsListAPI.data.locations;
-      const locationIdByName = allLocations.find(location => location.locationName === name);
 
-      if (locationIdByName.locationId) {
-        console.log(`Using ${name} found location ID: ${locationIdByName.locationId}`);
-      }
+      // Filter locations by postalCode
+      const locationByPostalCode = allLocations.find(location => location.postalCode === postalCode);
+      console.log(`Using ${postalCode} found "${locationByPostalCode.locationName}" CQC location ID: "${locationByPostalCode.locationId}"`);
       
       // Retrieve practice information using location ID
-      const locationAPI = await axios.get(`https://api.cqc.org.uk/public/v1/locations/${locationIdByName.locationId}?partnerCode=OpenAnswers`);
+      const locationAPI = await axios.get(`https://api.cqc.org.uk/public/v1/locations/${locationByPostalCode.locationId}?partnerCode=OpenAnswers`);
       
-      // Check if the location ID is registered and matches the ODS code we have
+      // Check if the location ID is registered and matches the ODS code
       if (locationAPI.data.registrationStatus === 'Registered' && locationAPI.data.odsCode == ods_code) {
         console.log(locationAPI.data);
       }
@@ -24,4 +23,4 @@ async function getCQC(name, ods_code) {
     }
   }
 
-getCQC('Aireborough Family Practice', 'B86070');
+getCQC('TS11 7BL', 'A81048');
