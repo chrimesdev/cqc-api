@@ -13,6 +13,10 @@ all using the [CQC Syndication API](https://anypoint.mulesoft.com/exchange/porta
 npm install
 ```
 
+```
+npm start
+```
+
 ### Get a CQC location ID by postcode
 
 ```
@@ -34,7 +38,7 @@ validateCQC.validateCQC('1-547292114');
 ```
 const validateCQC = require('./validate');
 
-validateCQC.validateCQCtoODS('1-547292114', 'odsCode');
+validateCQC.validateCQCtoODS('1-541013617', 'A83040');
 ```
 
 ### Get CQC data by CQC location ID

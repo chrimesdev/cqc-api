@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-async function validateCQC(cqc_code) {
+export async function validateCQC(cqc_code: string) {
   try {
     const locationAPI = await axios.get(`https://api.cqc.org.uk/public/v1/locations/${cqc_code}?partnerCode=OpenAnswers`);
     
@@ -15,7 +15,7 @@ async function validateCQC(cqc_code) {
   }
 }
 
-async function validateCQCtoODS(cqc_code, ods_code) {
+export async function validateCQCtoODS(cqc_code: string, ods_code: string) {
   try {
     const locationAPI = await axios.get(`https://api.cqc.org.uk/public/v1/locations/${cqc_code}?partnerCode=OpenAnswers`);
     
@@ -29,8 +29,3 @@ async function validateCQCtoODS(cqc_code, ods_code) {
     console.error(error);
   }
 }
-
-module.exports = {
-  validateCQC,
-  validateCQCtoODS
-};

@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-async function getCQC(cqc_code) {
+export async function getCQC(cqc_code: string) {
   try {
     const locationAPI = await axios.get(`https://api.cqc.org.uk/public/v1/locations/${cqc_code}?partnerCode=OpenAnswers`);
     
@@ -12,7 +12,3 @@ async function getCQC(cqc_code) {
     console.error(error);
   }
 }
-
-module.exports = {
-  getCQC,
-};
